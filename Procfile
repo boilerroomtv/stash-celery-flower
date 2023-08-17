@@ -1,1 +1,1 @@
-web: celery flower --broker=$BROKER_URL --port=$PORT --broker_api=$BROKER_API
+web: celery --broker=$BROKER_URL flower --broker_api=$BROKER_API --port=$PORT

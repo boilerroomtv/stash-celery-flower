@@ -1,6 +1,6 @@
 # Monitoring Celery with Flower on Heroku
 
-[Flower](https://flower.readthedocs.io/en/latest/) is a great tool for monitoring [Celery](https://docs.celeryproject.org/en/stable/django/first-steps-with-django.html) processes but sadly cannot be deployed in the same instance as your primary [Heroku application](https://heroku.com). A simple solution is to run Flower on a seperate Heroku instance. This simple project will launch Flower with Redis to monitor your Celery processes from another project.
+[Flower](https://flower.readthedocs.io/en/latest/) is a great tool for monitoring [Celery](https://docs.celeryproject.org/en/stable/django/first-steps-with-django.html) processes but sadly cannot be deployed in the same instance as your primary [Heroku application](https://heroku.com). A simple solution is to run Flower on a seperate Heroku instance. This simple project will launch Flower with RabbitMQ to monitor your Celery processes from another project.
 
 It's so simple, we can do it in only a few easy steps:
 
@@ -32,17 +32,17 @@ Create a Heroku app for Flower:
 
 ## Step 3 - Make the Roots! Set your Broker url.
 
-Flower needs to conenct to your Celery broker url in order to monitor your Celery Processes. This project includes Redis as a default - so feel free to use your Redis or RabbitMQ broker url.
+Flower needs to conenct to your Celery broker url in order to monitor your Celery Processes. This project includes RabbitMQ as a default - so feel free to use your RabbitMQ broker url (Found in the stash config vars within Heroku).
 
 ### On the Command Line:
 
-`heroku config:set BROKER_URL=redis://... -a YOUR-APP_NAME`
+`heroku config:set BROKER_URL=amqp://... -a YOUR-APP_NAME`
 
 ### On the Heroku Website:
 
 1. While in your application's dashboard, click on the settings tab.
 2. Click *reveal vars* button in the Config Vars section
-3. Add a new key and value -- the key is `BROKER_URL` and the value is the url to your Celery broker for the application you want to monitor... if redis it would start with `redis://`
+3. Add a new key and value -- the key is `BROKER_URL` and the value is the url to your Celery broker for the application you want to monitor... if RabbitMQ it would start with `amqp://`
 
 ## Step 4 - Lock The Door! Add some Authentication
 
